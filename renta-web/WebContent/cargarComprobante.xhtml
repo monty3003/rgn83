@@ -1,15 +1,111 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:jl="http://java.sun.com/jsf/composite/jsflive">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="ISO-8859-1" />
 <title>Cargar Comprobante</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous" />
 </head>
 <body>
-<h:form>
-<h:inputText id="fechaEmision" v>
-</h:form>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h:messages/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<h:form>
+					<div class="form-group frm-vertical">
+						<h:outputLabel for="fecha">Fecha</h:outputLabel>
+						<h:inputText styleClass="form-control" id="fecha"
+							value="#{cargarBean.fechaEmision}" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="emisor">Emisor</h:outputLabel>
+						<h:inputText styleClass="form-control" id="emisor"
+							value="#{cargarBean.emisorEntity.rucCi}"
+							validator="#{cargarBean.validarEmisor}">
+							<f:ajax event="blur" render="panelEmisor" />
+						</h:inputText>
+					</div>
+					<h:panelGroup id="panelEmisor">
+						<div class="form-group">
+							<h:outputLabel for="nombre">Nombre</h:outputLabel>
+							<h:inputText styleClass="form-control" id="nombre"
+								disabled="#{!empty cargarBean.emisorEntity.id}"
+								value="#{cargarBean.emisorEntity.nombre}" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel for="actividad">Actividad</h:outputLabel>
+							<h:inputText styleClass="form-control" id="actividad"
+								disabled="#{!empty cargarBean.emisorEntity.id}"
+								value="#{cargarBean.emisorEntity.actividad}" />
+						</div>
+					</h:panelGroup>
+					<div class="form-group">
+						<h:outputLabel for="tipo">Tipo</h:outputLabel>
+						<h:inputText styleClass="form-control" id="tipo"
+							value="#{cargarBean.tipo}" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="timbrado">Timbrado</h:outputLabel>
+						<h:inputText styleClass="form-control" id="timbrado"
+							value="#{cargarBean.timbrado}" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="numero">Numero Comprobante</h:outputLabel>
+						<h:inputText styleClass="form-control" id="numero"
+							value="#{cargarBean.numeroDocumento}" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="monto">Monto</h:outputLabel>
+						<h:inputText styleClass="form-control" id="monto"
+							value="#{cargarBean.montoDocumento}" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="iva">Total IVA</h:outputLabel>
+						<h:inputText styleClass="form-control" id="iva"
+							value="#{cargarBean.totalIVA}" />
+					</div>
+					<div class="form-group">
+						<h:outputLabel for="obs">Observacion</h:outputLabel>
+						<h:inputTextarea id="obs" styleClass="form-control"
+							value="#{cargarBean.observacion}" cols="5" rows="4" />
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<h:commandButton value="Guardar"
+								action="#{cargarBean.guardarComprobante}"
+								styleClass="btn btn-danger" />
+						</div>
+					</div>
+				</h:form>
+			</div>
+			<div class="col-sm-9">
+				<h:dataTable var="c" value="#{cargarBean.listaComprobantesCargados}"
+					styleClass="table display">
+					<h:column>
+						<f:facet name="header">Nro</f:facet>#{c.numeroDocumento}"
+	</h:column>
+					<h:column>
+						<f:facet name="header">Emisor</f:facet>#{c.emisor.nombre}"
+	</h:column>
+				</h:dataTable>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

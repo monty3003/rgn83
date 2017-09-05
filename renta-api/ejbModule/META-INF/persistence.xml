@@ -3,7 +3,7 @@
 	<persistence-unit name="rentaPU">
 	<jta-data-source>java:/rentaDS</jta-data-source>
 	<properties>
-		<property name="javax.persistence.schema-generation.database.action" value="create"/>
+		<property name="javax.persistence.schema-generation.database.action" value="none"/>
 	</properties>
 	</persistence-unit>
 </persistence>

@@ -3,6 +3,8 @@
 	<name>rentaEAR</name>
 	<comment></comment>
 	<projects>
+		<project>renta-web</project>
+		<project>renta-api</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
